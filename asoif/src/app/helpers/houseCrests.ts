@@ -10,5 +10,5 @@ export const houseCrests = [
 {name: 'House Arryn of Gulltown', imagePath:  "/houseArryn.svg"},
 {name: 'House Arryn of the Eyrie', imagePath:  "/houseArryn.svg"},
 {name: 'House Ashford of Ashford', imagePath: "/houseAshford.svg"},
-{name: 'House Ashwood', imagePath:  "/houseAshwood.svg"},
+{name: 'House Ashwood', imagePath:  "/houseAshwood.webp"},
 {name: 'House Baelish of Harrenhal', imagePath: "/houseBaelishOfHarrenhal.svg"},]

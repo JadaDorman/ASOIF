@@ -18,17 +18,18 @@ const HouseList = ({ swornMembersByHouse }: HouseListProps) => {
   };
   return (
     <>
-      <ul className="flex grid grid-cols-5 gap-x-12 gap-y-32">
+      <ul className="flex grid grid-cols-5 gap-x-12 gap-y-32" id="house-list">
         {swornMembersByHouse.map(
           (house: { houseName: string; swornMembersWithResults: [] }) => (
-            <button
+              <li
+                className="static grid grid-row-2 gap-y-12 transition hover:ease-in hover:opacity-50 hover:duration-300"
+                id="house-list-item"
+                key={house.houseName}
+              >
+                            <button
               onClick={() => handleClickedHouse(house.houseName)}
               key={house.houseName}
             >
-              <li
-                className="static grid grid-row-2 gap-y-12 transition hover:ease-in hover:opacity-50 hover:duration-300"
-                key={house.houseName}
-              >
                 <div className="flex relative justify-center">
                   <Image
                     className="relative fill dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
@@ -46,8 +47,9 @@ const HouseList = ({ swornMembersByHouse }: HouseListProps) => {
                 <p className="font-serif font-medium text-2xl static text-center">
                   <span>{house.houseName}</span>
                 </p>
+                </button>
               </li>
-            </button>
+       
           )
         )}
       </ul>

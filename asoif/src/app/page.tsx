@@ -78,8 +78,8 @@ export default async function Home() {
         </div>
       </header>
       <section className="flex flex-col gap-20 items-center text-center p-24">
-        <div className="z-10 max-w-5xl w-full font-mono ">
-          <h1 className="font-got text-center text-5xl tracking-widest">
+        <div className="bg-zinc-600 border-dotted border-2 border-amber-500 outline outline-amber-500 outline-offset-2 outline-2 rounded-[50%] z-10 shadow-lg max-w-5xl w-96 h-20 flex justify-center items-center  ">
+          <h1 className="font-got text-center text-5xl tracking-widest ">
             HOUSES
           </h1>
         </div>

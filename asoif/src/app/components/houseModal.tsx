@@ -1,4 +1,5 @@
 import React from "react";
+import CloseIcon from '@mui/icons-material/Close';
 import { houseCrests } from "../helpers/houseCrests";
 import Image from "next/image";
 import {
@@ -14,6 +15,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  IconButton,
 } from "@mui/material";
 
 interface HouseModalProps {
@@ -34,6 +36,7 @@ export function HouseModal({
         
       <Modal
         className="flex justify-center items-center min-w-96 scroll-smooth"
+        id="house-modal"
         open={isModalOpen}
         onClose={handleCloseModal}
       >
@@ -44,7 +47,7 @@ export function HouseModal({
           src={
             houseCrests.find(
               (crest: { name: string }) => crest.name === houseName
-            )?.imagePath
+            )?.imagePath || '/placeholderCrest.png'
           }
           alt={houseName}
           width={70}
@@ -55,20 +58,22 @@ export function HouseModal({
         <Card  variant="outlined" sx={{ width: '100%', maxHeight: 600, overflow: 'auto' }}>
       
           <CardContent>
-            <div className="grid grid-cols-2 gap-2 px-8 py-4">
+            
+            <div className="grid grid-cols-2 gap-4 px-2 py-4">
             <div >
             <h1 className="font-serif text-4xl ">{houseName}</h1>
             <p className=" text-sm">Sworn Members</p>
             </div>
             <div className="flex justify-end">
             <CardActions>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleCloseModal}
+            <IconButton
+             aria-label="close"
+             className="m-1q"
+              id="close-modal"
+             size="large"
             >
-              Close
-            </Button>
+              <CloseIcon onClick={handleCloseModal} />
+            </IconButton>
           </CardActions>
             </div>
             </div>
