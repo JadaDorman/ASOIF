@@ -2,10 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Game of Thrones';
-  src: url("/asoif/public/fonts/gameOfThrones.ttf");
-}
+
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -35,4 +32,9 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@font-face {
+  font-family: 'Game of Thrones';
+  src: url("/asoif/git public/fonts/gameOfThrones.ttf");
 }
