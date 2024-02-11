@@ -1,8 +1,7 @@
 import Image from "next/image";
-import logo from "./assets/logo.png";
 import HouseList from "./components/houseList";
 
-async function getHouses() {
+async function fetchHouses() {
   const res = await fetch("https://anapioficeandfire.com/api/houses");
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -62,7 +61,7 @@ async function fetchHouseData(housesData) {
 }
 
 export default async function Home() {
-  const housesData = await getHouses();
+  const housesData = await fetchHouses();
   const swornMembersByHouse = await fetchHouseData(housesData);
 
   return (
@@ -72,7 +71,7 @@ export default async function Home() {
           <Image
             alt="A Song of Ice and Fire"
             className="left-0 pl-16 p-4"
-            src={logo}
+            src="/logo.png"
             width={300}
             height={200}
           />
@@ -80,9 +79,9 @@ export default async function Home() {
       </header>
       <section className="flex flex-col gap-20 items-center text-center p-24">
         <div className="z-10 max-w-5xl w-full font-mono ">
-          <p className="font-serif text-center text-4xl tracking-widest">
+          <h1 className="font-got text-center text-5xl tracking-widest">
             HOUSES
-          </p>
+          </h1>
         </div>
         <div className="justify-self-center">
           <HouseList swornMembersByHouse={swornMembersByHouse} />

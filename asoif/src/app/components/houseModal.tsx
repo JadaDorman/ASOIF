@@ -3,11 +3,17 @@ import { houseCrests } from "../helpers/houseCrests";
 import Image from "next/image";
 import {
   Modal,
-  Typography,
+  Table,
+    Typography,
   Button,
   Card,
   CardContent,
   CardActions,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
 } from "@mui/material";
 
 interface HouseModalProps {
@@ -27,7 +33,7 @@ export function HouseModal({
  
         
       <Modal
-        className="flex justify-center items-center min-w-96"
+        className="flex justify-center items-center min-w-96 scroll-smooth"
         open={isModalOpen}
         onClose={handleCloseModal}
       >
@@ -45,24 +51,17 @@ export function HouseModal({
           height={70}
         />
         </div>
-        <Card sx={{ minWidth: 700, height: 400 }}>
+        
+        <Card  variant="outlined" sx={{ width: '100%', maxHeight: 600, overflow: 'auto' }}>
       
           <CardContent>
-            <h1 className="font-serif text-4xl">{houseName}</h1>
-            <Typography variant="body1">Sworn Members:</Typography>
-            <ul>
-              {swornMembers !== undefined && swornMembers.length > 0 ? (
-                swornMembers.map(
-                  (member: { name: string } | undefined, index: number) => (
-                    <li key={index}>{member?.name}</li>
-                  )
-                )
-              ) : (
-                <li>This house has no members</li>
-              )}
-            </ul>
-          </CardContent>
-          <CardActions>
+            <div className="grid grid-cols-2 gap-2 px-8 py-4">
+            <div >
+            <h1 className="font-serif text-4xl ">{houseName}</h1>
+            <p className=" text-sm">Sworn Members</p>
+            </div>
+            <div className="flex justify-end">
+            <CardActions>
             <Button
               variant="contained"
               color="primary"
@@ -71,6 +70,36 @@ export function HouseModal({
               Close
             </Button>
           </CardActions>
+            </div>
+            </div>
+            <TableContainer className="px-4">
+              <Table stickyHeader>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Members</TableCell>
+                    <TableCell>Status</TableCell>
+                    <TableCell>Died</TableCell>
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {swornMembers !== undefined && swornMembers.length > 0 ? (
+                        swornMembers.map(
+                          (member: { name: string, died: string } | undefined, index: number) => (
+                            <TableRow key={index}>
+                              <TableCell>{member?.name}</TableCell>
+                              <TableCell> {member?.died ? "Dead" : "Alive"}</TableCell>
+                              <TableCell>{member?.died}</TableCell>
+                            </TableRow>
+                          )
+                        )
+                      ) : (
+                        <li>This house has no members</li>
+                      )}
+                    </TableBody>
+            </Table>
+            </TableContainer>
+          </CardContent>
+         
         </Card>
         </div>
       </Modal>

@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import placeholderCrest from "../assets/placeholderCrest.png";
 import Image from "next/image";
 import HouseModal from "./houseModal";
 import { houseCrests } from "../helpers/houseCrests";
@@ -37,7 +36,7 @@ const HouseList = ({ swornMembersByHouse }: HouseListProps) => {
                       houseCrests.find(
                         (crest: { name: string }) =>
                           crest.name === house.houseName
-                      )?.imagePath || placeholderCrest
+                      )?.imagePath || '/placeholderCrest.png'
                     }
                     alt={house.houseName}
                     width={200}
