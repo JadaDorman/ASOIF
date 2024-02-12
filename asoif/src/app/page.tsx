@@ -1,84 +1,28 @@
 import Image from "next/image";
 import HouseList from "./components/houseList";
-
-async function fetchHouses() {
-  const res = await fetch("https://anapioficeandfire.com/api/houses");
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
-
-async function fetchSwornMembers(swornMembers: string[]) {
-  const characterArray: string[] = [];
-
-  for (const member of swornMembers) {
-    const res = await fetch(member);
-    if (!res.ok) {
-      throw new Error("Failed to fetch data");
-    }
-
-    const character = await res.json();
-    characterArray.push(character);
-  }
-
-  return characterArray;
-}
-
-async function fetchHouseData(housesData) {
-  const houseDataWithSwornMembers = housesData.map(async (house) => {
-    const swornMembers = await fetchSwornMembers(house.swornMembers);
-    return {
-      houseName: house.name,
-      swornMembers: swornMembers,
-    };
-  });
-
-  const houseDataWithSwornMembersResults = await Promise.all(
-    houseDataWithSwornMembers
-  );
-
-  const houseDataWithSwornMembersAndResults =
-    houseDataWithSwornMembersResults.map((houseData) => {
-      const swornMembersWithResults = houseData.swornMembers.map(
-        (swornMember) => {
-          return {
-            ...swornMember,
-            houseName: houseData.houseName,
-          };
-        }
-      );
-
-      return {
-        houseName: houseData.houseName,
-        swornMembersWithResults: swornMembersWithResults,
-      };
-    });
-
-  return houseDataWithSwornMembersAndResults;
-}
+import { fetchHouses, fetchHouseData } from './helpers/getFunctions';
 
 export default async function Home() {
   const housesData = await fetchHouses();
   const swornMembersByHouse = await fetchHouseData(housesData);
 
   return (
-    <main className="flex min-h-screen flex-col ">
+
+      
+    <main className="flex min-h-screen flex-col bg-[url('/AdobeStock.jpeg')]  ">
       <header className="" role="banner">
-        <div className="absolute sticky top-0 left-0 z-40 w-full backdrop-blur border-b border-white ">
+        <div className="absolute sticky top-0 left-0 z-40 w-full backdrop-blur border-b border-slate-800 ">
           <Image
             alt="A Song of Ice and Fire"
             className="left-0 pl-16 p-4"
             src="/logo.png"
             width={300}
-            height={200}
+            height={100}
           />
         </div>
       </header>
       <section className="flex flex-col gap-20 items-center text-center p-24">
-        <div className="bg-zinc-600 border-dotted border-2 border-amber-500 outline outline-amber-500 outline-offset-2 outline-2 rounded-[50%] z-10 shadow-lg max-w-5xl w-96 h-20 flex justify-center items-center  ">
+        <div className="bg-zinc-900 border-dotted border-2 border-yellow-500 outline outline-yellow-300 outline-offset-2 outline-2 rounded-[50%] z-10 shadow-lg max-w-5xl w-96 h-20 flex justify-center items-center  ">
           <h1 className="font-got text-center text-5xl tracking-widest ">
             HOUSES
           </h1>
@@ -88,5 +32,6 @@ export default async function Home() {
         </div>
       </section>
     </main>
+
   );
 }

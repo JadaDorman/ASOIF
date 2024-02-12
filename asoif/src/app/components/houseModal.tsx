@@ -1,12 +1,12 @@
 import React from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { houseCrests } from "../helpers/houseCrests";
+import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import Image from "next/image";
 import {
   Modal,
   Table,
-    Typography,
-  Button,
   Card,
   CardContent,
   CardActions,
@@ -17,6 +17,7 @@ import {
   TableBody,
   IconButton,
 } from "@mui/material";
+import  { tableCellClasses } from '@mui/material/TableCell';
 
 interface HouseModalProps {
   houseName: string;
@@ -25,25 +26,57 @@ interface HouseModalProps {
   handleCloseModal: () => void;
 }
 
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
+
 export function HouseModal({
   houseName,
   swornMembers,
   isModalOpen,
   handleCloseModal,
 }: HouseModalProps) {
+
+  const handleLowerCase = (text: string) => {
+    return text.charAt(0).toLowerCase() + text.slice(1);
+  }
   return (
  
-        
+    <ThemeProvider theme={darkTheme}>
+    <CssBaseline />
       <Modal
-        className="flex justify-center items-center min-w-96 scroll-smooth"
+        className="flex justify-center items-center min-w-96 scroll-smooth animate-fade"
         id="house-modal"
         open={isModalOpen}
         onClose={handleCloseModal}
       >
            <div>
-            <div  className="flex justify-center Z-40 fill  self-center">
+            <div  className="flex relative justify-center Z-40 fill  self-center top-8">
         <Image
-         
           src={
             houseCrests.find(
               (crest: { name: string }) => crest.name === houseName
@@ -51,18 +84,17 @@ export function HouseModal({
           }
           alt={houseName}
           width={70}
-          height={70}
+          height={50}
         />
         </div>
-        
-        <Card  variant="outlined" sx={{ width: '100%', maxHeight: 600, overflow: 'auto' }}>
+        <div className="border-2 border-yellow-300">
+        <Card  variant="outlined" sx={{ height: 540,  maxHeight:540, minWidth: 750, }}>
       
-          <CardContent>
+          <CardContent >
             
-            <div className="grid grid-cols-2 gap-4 px-2 py-4">
-            <div >
+            <div className="grid grid-cols-3 gap-2 px-2 pt-6">
+            <div className="col-span-2">
             <h1 className="font-serif text-4xl ">{houseName}</h1>
-            <p className=" text-sm">Sworn Members</p>
             </div>
             <div className="flex justify-end">
             <CardActions>
@@ -71,34 +103,39 @@ export function HouseModal({
              className="m-1q"
               id="close-modal"
              size="large"
+        
             >
               <CloseIcon onClick={handleCloseModal} />
             </IconButton>
           </CardActions>
             </div>
             </div>
-            <TableContainer className="px-4">
+  
+            <TableContainer className="px-4" sx={{ maxHeight: 440 }}>
+            <h2 className="font-medium text-xl text-yellow-300 py-2  ">Sworn Members</h2>
               <Table stickyHeader>
                 <TableHead>
-                  <TableRow>
-                    <TableCell>Members</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Died</TableCell>
-                    </TableRow>
+                  <StyledTableRow>
+                    <StyledTableCell>Members</StyledTableCell>
+                    <StyledTableCell>Status</StyledTableCell>
+                    </StyledTableRow>
                     </TableHead>
                     <TableBody>
                       {swornMembers !== undefined && swornMembers.length > 0 ? (
                         swornMembers.map(
                           (member: { name: string, died: string } | undefined, index: number) => (
-                            <TableRow key={index}>
-                              <TableCell>{member?.name}</TableCell>
-                              <TableCell> {member?.died ? "Dead" : "Alive"}</TableCell>
-                              <TableCell>{member?.died}</TableCell>
-                            </TableRow>
+                            <StyledTableRow   key={index}>
+                              <StyledTableCell >{member?.name}</StyledTableCell>
+                              <StyledTableCell>{member?.died ? "Died " + handleLowerCase(member.died) : "Alive"}</StyledTableCell>
+                            </StyledTableRow>
                           )
                         )
                       ) : (
-                        <li>This house has no members</li>
+                        <StyledTableRow>
+                        <StyledTableCell>This house has no members.</StyledTableCell>
+                        <StyledTableCell>{''}</StyledTableCell>
+                        </StyledTableRow>
+                  
                       )}
                     </TableBody>
             </Table>
@@ -107,7 +144,9 @@ export function HouseModal({
          
         </Card>
         </div>
+        </div>
       </Modal>
+      </ThemeProvider>
   );
 }
 
