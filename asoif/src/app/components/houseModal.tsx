@@ -61,6 +61,7 @@ export function HouseModal({
   handleCloseModal,
 }: HouseModalProps) {
 
+  //Function to change first letter of string to lowercase
   const handleLowerCase = (text: string) => {
     return text.charAt(0).toLowerCase() + text.slice(1);
   }
@@ -69,12 +70,12 @@ export function HouseModal({
     <ThemeProvider theme={darkTheme}>
     <CssBaseline />
       <Modal
-        className="flex justify-center items-center min-w-96 scroll-smooth animate-fade"
+        className="flex justify-center items-center min-w-96 scroll-smooth "
         id="house-modal"
         open={isModalOpen}
         onClose={handleCloseModal}
       >
-           <div>
+           <div className="animate-fade animate-ease-in animate-duration-300">
             <div  className="flex relative justify-center Z-40 fill  self-center top-8">
         <Image
           src={
@@ -87,7 +88,7 @@ export function HouseModal({
           height={50}
         />
         </div>
-        <div className="border-2 border-yellow-300">
+        <div className="border-2 border-yellow-300 " >
         <Card  variant="outlined" sx={{ height: 540,  maxHeight:540, minWidth: 750, }}>
       
           <CardContent >

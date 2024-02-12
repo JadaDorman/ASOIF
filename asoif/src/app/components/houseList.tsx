@@ -11,7 +11,6 @@ interface HouseListProps {
 const HouseList = ({ swornMembersByHouse }: HouseListProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedHouse, setSelectedHouse] = useState("");
-  console.log(selectedHouse);
   const handleClickedHouse = (name: string) => {
     setSelectedHouse(name);
     setIsModalOpen(true);
@@ -23,7 +22,7 @@ const HouseList = ({ swornMembersByHouse }: HouseListProps) => {
         {swornMembersByHouse.map(
           (house: { houseName: string; swornMembersWithResults: [] }) => (
             <li
-              className="static grid grid-row-2 gap-y-12 transition hover:ease-in hover:opacity-50 hover:duration-300 "
+              className="static transition hover:ease-in hover:opacity-50 hover:duration-300  hover:scale-110 "
               id="house-list-item"
               key={house.houseName}
             >
@@ -31,7 +30,8 @@ const HouseList = ({ swornMembersByHouse }: HouseListProps) => {
                 onClick={() => handleClickedHouse(house.houseName)}
                 key={house.houseName}
               >
-                <div className="flex relative justify-center">
+                <div className=" grid grid-row-2 gap-y-14">
+                <div className="flex relative justify-center h-56">
                   <Image
                     className="relative fill drop-shadow-xl shadow-indigo-500/40"
                     src={
@@ -48,6 +48,7 @@ const HouseList = ({ swornMembersByHouse }: HouseListProps) => {
                 <p className="font-serif font-medium text-2xl static text-center">
                   <span>{house.houseName}</span>
                 </p>
+                </div>
               </button>
             </li>
           )

@@ -9,7 +9,7 @@ export default async function Home() {
   return (
 
       
-    <main className="flex min-h-screen flex-col bg-[url('/AdobeStock.jpeg')]  ">
+    <main className="flex min-h-screen flex-col bg-[url('/AdobeStockGradient.jpeg')]  ">
       <header className="" role="banner">
         <div className="absolute sticky top-0 left-0 z-40 w-full backdrop-blur border-b border-slate-800 ">
           <Image

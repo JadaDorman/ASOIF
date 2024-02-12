@@ -9,7 +9,7 @@ export async function fetchHouses() {
     return res.json();
   }
   
-//fetch sworn members info and create a new array with all the data  
+//fetch all sworn members info and create a new array with all the data  
 export async function fetchSwornMembers(swornMembers: string[]) {
     const characterArray: string[] = [];
   
@@ -26,7 +26,7 @@ export async function fetchSwornMembers(swornMembers: string[]) {
     return characterArray;
   }
   
-//Using houseData and the fetchSwornMembers function, create a new object with the house name and the sworn members data.  
+//Using houseData and the fetchSwornMembers function, create a new object with the house names and the sworn members data.  
 export async function fetchHouseData(housesData) {
     const houseDataWithSwornMembers = housesData.map(async (house) => {
       const swornMembers = await fetchSwornMembers(house.swornMembers);
@@ -41,7 +41,7 @@ export async function fetchHouseData(housesData) {
       houseDataWithSwornMembers
     );
 
-    //
+    //Creates array with sworn members data separated by house.
     const houseDataWithSwornMembersAndResults =
       houseDataWithSwornMembersResults.map((houseData) => {
         const swornMembersWithResults = houseData.swornMembers.map(
@@ -60,5 +60,4 @@ export async function fetchHouseData(housesData) {
       });
   
     return houseDataWithSwornMembersAndResults;
-    console.log(houseDataWithSwornMembersAndResults)
   }
