@@ -27,13 +27,21 @@ And select E2E testing.
 
 ## Tech Stack
 Cypress.io
+
 Next.js
+
 Tailwind.css
+
 Typescript
+
 Material UI
 
 ## Credits
+
 Api used https://anapioficeandfire.com/
+
 Crests sourced from https://awoiaf.westeros.org/
+
 Backdrop sourced from https://stock.adobe.com/images/the-background-of-the-gradient-black-gray-abstract-pattern/403934275
+
 Ice and Fire icon from https://www.pngwing.com/en/free-png-dkyop  
