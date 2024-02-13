@@ -18,26 +18,24 @@ const HouseList = ({ swornMembersByHouse }: HouseListProps) => {
     setIsModalOpen(true);
   };
 
- const  selectedSwornMembers = swornMembersByHouse.find(
-  (house: { houseName: string }) =>
-    house.houseName === selectedHouse
-)?.swornMembers 
+  const selectedSwornMembers = swornMembersByHouse.find(
+    (house: { houseName: string }) => house.houseName === selectedHouse
+  )?.swornMembers;
 
   return (
     <>
       <ul className="flex grid grid-cols-5 gap-x-6 gap-y-32" id="house-list">
-        {swornMembersByHouse.map(
-          (house: House) => (
-            <li
-              className="static transition hover:ease-in hover:opacity-50 hover:duration-300  hover:scale-110 "
-              id="house-list-item"
+        {swornMembersByHouse.map((house: House) => (
+          <li
+            className="static transition hover:ease-in hover:opacity-50 hover:duration-300  hover:scale-110 "
+            id="house-list-item"
+            key={house.houseName}
+          >
+            <button
+              onClick={() => handleClickedHouse(house.houseName)}
               key={house.houseName}
             >
-              <button
-                onClick={() => handleClickedHouse(house.houseName)}
-                key={house.houseName}
-              >
-                <div className=" grid grid-row-2 gap-y-14">
+              <div className=" grid grid-row-2 gap-y-14">
                 <div className="flex relative justify-center h-56">
                   <Image
                     className="relative fill drop-shadow-xl shadow-indigo-500/40"
@@ -55,18 +53,15 @@ const HouseList = ({ swornMembersByHouse }: HouseListProps) => {
                 <p className="font-serif font-medium text-3xl static text-center">
                   <span>{house.houseName}</span>
                 </p>
-                </div>
-              </button>
-            </li>
-          )
-        )}
+              </div>
+            </button>
+          </li>
+        ))}
       </ul>
       <div className="flex justify-center">
         <HouseModal
           houseName={selectedHouse}
-          swornMembers={
-         selectedSwornMembers
-          }
+          swornMembers={selectedSwornMembers}
           isModalOpen={isModalOpen}
           handleCloseModal={() => setIsModalOpen(false)}
         />
