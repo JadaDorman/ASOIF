@@ -18,10 +18,11 @@ import {
   IconButton,
 } from "@mui/material";
 import  { tableCellClasses } from '@mui/material/TableCell';
+import { SwornHouseMember } from "../types/houseTypes";
 
 interface HouseModalProps {
   houseName: string;
-  swornMembers: [] | undefined;
+  swornMembers: SwornHouseMember[] | undefined;
   isModalOpen: boolean;
   handleCloseModal: () => void;
 }
@@ -85,7 +86,7 @@ export function HouseModal({
           }
           alt={houseName}
           width={70}
-          height={50}
+          height={70}
         />
         </div>
         <div className="border-2 border-yellow-300 " >
@@ -103,10 +104,11 @@ export function HouseModal({
              aria-label="close"
              className="m-1q"
               id="close-modal"
+              onClick={handleCloseModal}
              size="large"
         
             >
-              <CloseIcon onClick={handleCloseModal} />
+              <CloseIcon  />
             </IconButton>
           </CardActions>
             </div>

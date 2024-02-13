@@ -1,3 +1,5 @@
+import { HouseData } from "../types/houseTypes";
+
 //fetch houses
 export async function fetchHouses() {
     const res = await fetch("https://anapioficeandfire.com/api/houses");
@@ -27,7 +29,7 @@ export async function fetchSwornMembers(swornMembers: string[]) {
   }
   
 //Using houseData and the fetchSwornMembers function, create a new object with the house names and the sworn members data.  
-export async function fetchHouseData(housesData) {
+export async function fetchHouseData(housesData: HouseData[]) {
     const houseDataWithSwornMembers = housesData.map(async (house) => {
       const swornMembers = await fetchSwornMembers(house.swornMembers);
       return {
@@ -41,21 +43,18 @@ export async function fetchHouseData(housesData) {
       houseDataWithSwornMembers
     );
 
-    //Creates array with sworn members data separated by house.
+    //Creates object with sworn members data separated by house.
     const houseDataWithSwornMembersAndResults =
       houseDataWithSwornMembersResults.map((houseData) => {
         const swornMembersWithResults = houseData.swornMembers.map(
           (swornMember) => {
-            return {
-              ...swornMember,
-              houseName: houseData.houseName,
-            };
+            return Object.assign({}, swornMember, { houseName: houseData.houseName });
           }
         );
-  
+
         return {
           houseName: houseData.houseName,
-          swornMembersWithResults: swornMembersWithResults,
+          swornMembers: swornMembersWithResults,
         };
       });
   
